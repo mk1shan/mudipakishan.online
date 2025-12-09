@@ -1,5 +1,5 @@
 import { Experience, Project, SkillCategory, Certificate, Education } from './types';
-import { Github, Linkedin, Mail, MapPin, Phone, Globe } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Globe, ExternalLink } from 'lucide-react';
 
 export const PERSONAL_INFO = {
   name: "Mudipa Kishan",
@@ -21,7 +21,7 @@ export const PERSONAL_INFO = {
   socials: [
     { name: "GitHub", icon: Github, url: "https://github.com/mk1shan" },
     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/mudipa-kishan/" },
-    { name: "Behance", icon: Globe, url: "https://www.behance.net/mudipakishan" },
+    { name: "Behance", icon: ExternalLink, url: "https://www.behance.net/mudipakishan" },
     { name: "Email", icon: Mail, url: "mailto:mudipaimayangakdu@gmail.com" }
   ]
 };

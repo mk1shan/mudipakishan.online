@@ -6,43 +6,48 @@ import * as THREE from 'three';
 import { AnimatePresence, motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { PERSONAL_INFO, EXPERIENCE, PROJECTS, SKILLS, CERTIFICATES, EDUCATION } from './constants';
 import { Project, Experience, Certificate, Education } from './types';
-import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Twitter, Award, ExternalLink, GraduationCap, Menu, X, Globe } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Twitter, Award, ExternalLink, GraduationCap, Menu, X } from 'lucide-react';
 
 // --- 3D SCENE: LIQUID CHROME ---
 
 const LiquidSphere = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { mouse, viewport } = useThree();
+  const { mouse, viewport, size } = useThree();
+  const isMobile = size.width < 768;
   
   useFrame((state) => {
     if (meshRef.current) {
       const t = state.clock.getElapsedTime();
-      // Subtle follow mouse
+      // Subtle follow mouse (reduced on mobile for performance)
       const x = (mouse.x * viewport.width) / 2;
       const y = (mouse.y * viewport.height) / 2;
       
-      meshRef.current.position.x = THREE.MathUtils.lerp(meshRef.current.position.x, x * 0.2, 0.1);
-      meshRef.current.position.y = THREE.MathUtils.lerp(meshRef.current.position.y, y * 0.2, 0.1);
+      const lerpSpeed = isMobile ? 0.05 : 0.1;
+      meshRef.current.position.x = THREE.MathUtils.lerp(meshRef.current.position.x, x * 0.2, lerpSpeed);
+      meshRef.current.position.y = THREE.MathUtils.lerp(meshRef.current.position.y, y * 0.2, lerpSpeed);
       
-      meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, y * 0.1, 0.1);
-      meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, x * 0.1, 0.1);
+      meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, y * 0.1, lerpSpeed);
+      meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, x * 0.1, lerpSpeed);
     }
   });
 
+  // Optimize geometry for mobile
+  const segments = isMobile ? 64 : 128;
+
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh ref={meshRef} scale={1.8}>
-        <sphereGeometry args={[1, 128, 128]} />
+      <mesh ref={meshRef} scale={isMobile ? 1.4 : 1.8}>
+        <sphereGeometry args={[1, segments, segments]} />
         <MeshDistortMaterial
-          color="#111"
+          color={isMobile ? "#1a1a1a" : "#111"}
           attach="material"
           distort={0.4}
           speed={2}
-          roughness={0.1}
+          roughness={isMobile ? 0.05 : 0.1}
           metalness={1}
           bumpScale={0.005}
           clearcoat={1}
-          clearcoatRoughness={0.1}
+          clearcoatRoughness={isMobile ? 0.05 : 0.1}
           radius={1}
         />
       </mesh>
@@ -51,134 +56,33 @@ const LiquidSphere = () => {
 };
 
 const BackgroundScene = () => {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
+  
   return (
     <>
       <Environment preset="studio" />
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+      <ambientLight intensity={isMobile ? 0.6 : 0.5} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={isMobile ? 1.2 : 1} castShadow />
       <LiquidSphere />
-      <Stars radius={100} depth={50} count={1000} factor={4} saturation={0} fade speed={1} />
-      <ContactShadows resolution={1024} scale={10} blur={2} opacity={0.5} far={10} color="#000000" />
-    </>
-  );
-};
-
-// --- CUSTOM CURSOR (Professional Implementation) ---
-
-const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  
-  const mouse = useRef({ x: 0, y: 0 });
-  const currentPos = useRef({ x: 0, y: 0 });
-  const followerPos = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    // Only show cursor on devices with mouse (not touch devices)
-    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    if (isTouchDevice) return;
-    
-    let animationFrameId: number;
-    
-    const updateMouse = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-    };
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const isInteractive = 
-        target.tagName === 'A' || 
-        target.closest('a') || 
-        target.tagName === 'BUTTON' ||
-        target.closest('button') ||
-        target.onclick !== null ||
-        window.getComputedStyle(target).cursor === 'pointer';
-      
-      setIsHovering(isInteractive);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovering(false);
-    };
-
-    const animate = () => {
-      // Smooth lerp for main cursor (faster, more responsive)
-      const lerpMain = 0.2;
-      currentPos.current.x += (mouse.current.x - currentPos.current.x) * lerpMain;
-      currentPos.current.y += (mouse.current.y - currentPos.current.y) * lerpMain;
-      
-      // Slower lerp for follower (creates trailing effect)
-      const lerpFollower = 0.1;
-      followerPos.current.x += (mouse.current.x - followerPos.current.x) * lerpFollower;
-      followerPos.current.y += (mouse.current.y - followerPos.current.y) * lerpFollower;
-      
-      if (cursorRef.current && followerRef.current) {
-        cursorRef.current.style.transform = `translate(${currentPos.current.x}px, ${currentPos.current.y}px)`;
-        followerRef.current.style.transform = `translate(${followerPos.current.x}px, ${followerPos.current.y}px)`;
-      }
-      
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    // Initialize positions
-    const initCursor = (e: MouseEvent) => {
-      currentPos.current = { x: e.clientX, y: e.clientY };
-      followerPos.current = { x: e.clientX, y: e.clientY };
-      mouse.current = { x: e.clientX, y: e.clientY };
-      window.removeEventListener('mousemove', initCursor);
-    };
-
-    window.addEventListener('mousemove', updateMouse);
-    window.addEventListener('mousemove', initCursor);
-    document.addEventListener('mouseover', handleMouseEnter, true);
-    document.addEventListener('mouseout', handleMouseLeave, true);
-    
-    animate();
-
-    return () => {
-      window.removeEventListener('mousemove', updateMouse);
-      window.removeEventListener('mousemove', initCursor);
-      document.removeEventListener('mouseover', handleMouseEnter, true);
-      document.removeEventListener('mouseout', handleMouseLeave, true);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  // Don't render on touch devices
-  if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
-    return null;
-  }
-
-  return (
-    <>
-      {/* Main cursor dot */}
-      <div
-        ref={cursorRef}
-        className="fixed pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          width: isHovering ? '32px' : '8px',
-          height: isHovering ? '32px' : '8px',
-          borderRadius: '50%',
-          border: isHovering ? '2px solid #CCFF00' : '1px solid #CCFF00',
-          backgroundColor: isHovering ? 'transparent' : '#CCFF00',
-          transform: 'translate(-50%, -50%)',
-          transition: 'width 0.3s ease, height 0.3s ease, border 0.3s ease, background-color 0.3s ease',
-          willChange: 'transform',
-        }}
+      {/* Reduced star count on mobile for performance */}
+      <Stars 
+        radius={100} 
+        depth={50} 
+        count={isMobile ? 500 : 1000} 
+        factor={4} 
+        saturation={0} 
+        fade 
+        speed={1} 
       />
-      {/* Follower ring for smooth trailing effect */}
-      <div
-        ref={followerRef}
-        className="fixed pointer-events-none z-[9998] mix-blend-difference"
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          border: '1px solid rgba(204, 255, 0, 0.3)',
-          transform: 'translate(-50%, -50%)',
-          willChange: 'transform',
-        }}
+      {/* Lower shadow resolution on mobile */}
+      <ContactShadows 
+        resolution={isMobile ? 512 : 1024} 
+        scale={10} 
+        blur={2} 
+        opacity={isMobile ? 0.6 : 0.5} 
+        far={10} 
+        color="#000000" 
       />
     </>
   );
@@ -222,7 +126,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <button
-            onClick={() => scrollToSection('hero')}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex flex-col hover:opacity-80 transition-opacity"
           >
             <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-white">
@@ -261,34 +165,34 @@ const Navbar = () => {
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={{
-          height: isMenuOpen ? 'auto' : 0,
-          opacity: isMenuOpen ? 1 : 0
-        }}
-        transition={{ duration: 0.3 }}
-        className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md border-t border-white/10"
-      >
-        <div className="px-4 py-6 space-y-4">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="block w-full text-left text-base font-mono text-white/70 hover:text-accent transition-colors uppercase tracking-wider py-2"
-            >
-              {item.label}
-            </button>
-          ))}
-          <div className="pt-4 border-t border-white/10 text-xs font-mono text-dim space-y-1">
-            <div>AVAILABLE FOR WORK</div>
-            <div>BASED IN SRI LANKA</div>
+        {/* Mobile Menu */}
+        <motion.div
+          initial={false}
+          animate={{
+            height: isMenuOpen ? 'auto' : 0,
+            opacity: isMenuOpen ? 1 : 0
+          }}
+          transition={{ duration: 0.3 }}
+          className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md border-t border-white/10"
+        >
+          <div className="px-4 py-6 space-y-4">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="block w-full text-left text-base font-mono text-white/70 hover:text-accent transition-colors uppercase tracking-wider py-2"
+              >
+                {item.label}
+              </button>
+            ))}
+            <div className="pt-4 border-t border-white/10 text-xs font-mono text-dim space-y-1">
+              <div>AVAILABLE FOR WORK</div>
+              <div>BASED IN SRI LANKA</div>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </nav>
   );
 };
@@ -304,11 +208,11 @@ const Hero = () => {
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 overflow-hidden pt-16 md:pt-0">
       {/* Huge Typography Background */}
-      <div className="absolute inset-0 flex flex-col justify-center items-center opacity-10 sm:opacity-20 pointer-events-none select-none">
+      <div className="absolute inset-0 flex flex-col justify-center items-center opacity-15 sm:opacity-20 pointer-events-none select-none">
          <h1 className="text-[20vw] sm:text-[15vw] leading-none font-black text-stroke">DEVOPS</h1>
       </div>
 
-      <div className="z-10 text-center mix-blend-difference w-full">
+      <div className="relative z-10 text-center mix-blend-difference w-full">
          <motion.div
            initial={{ opacity: 0, y: 100 }}
            animate={{ opacity: 1, y: 0 }}
@@ -575,9 +479,40 @@ export default function App() {
       <div className="relative bg-background min-h-screen">
         <Navbar />
         
-        {/* Fixed 3D Background - Hidden on mobile for performance */}
-        <div className="hidden sm:block fixed inset-0 z-0 pointer-events-none opacity-60">
-          <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
+        {/* Fixed 3D Background - Visible on all devices with optimized settings */}
+        <div 
+          className="fixed inset-0 z-0 pointer-events-none" 
+          style={{ 
+            opacity: 0.7, 
+            width: '100%', 
+            height: '100%',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
+        >
+          <Canvas 
+            camera={{ position: [0, 0, 5], fov: 45 }} 
+            dpr={[0.5, 2]}
+            performance={{ min: 0.5 }}
+            gl={{ 
+              antialias: true,
+              alpha: false,
+              powerPreference: "high-performance",
+              preserveDrawingBuffer: true
+            }}
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              display: 'block', 
+              position: 'absolute', 
+              top: 0, 
+              left: 0,
+              zIndex: 0
+            }}
+          >
             <Suspense fallback={null}>
               <BackgroundScene />
             </Suspense>
