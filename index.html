@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mudipa Kishan | Creative Technologist</title>
+    <meta name="description" content="Portfolio of Mudipa Kishan - Associate Software Engineer & Creative Technologist" />
+    
+    <!-- Fonts: Space Grotesk for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              background: '#050505',
+              surface: '#0f0f0f',
+              accent: '#CCFF00', /* Acid Lime */
+              secondary: '#ffffff',
+              dim: 'rgba(255, 255, 255, 0.4)',
+            },
+            cursor: {
+              none: 'none',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050505;
+        color: #ffffff;
+        overflow-x: hidden;
+        cursor: none; /* Custom cursor */
+      }
+      /* Hide default scrollbar for cleaner look, strictly custom scroll or system invisible */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #222;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #CCFF00;
+      }
+      
+      .blend-difference {
+        mix-blend-mode: difference;
+      }
+      
+      /* Smooth text rendering */
+      h1, h2, h3, h4, h5, h6 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+      }
+
+      .text-stroke {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+        color: transparent;
+      }
+      
+      .text-stroke-accent {
+        -webkit-text-stroke: 1px #CCFF00;
+        color: transparent;
+      }
+
+      /* Loader Animation */
+      @keyframes slideUp {
+        0% { transform: translateY(100%); }
+        100% { transform: translateY(0); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.2",
+    "@react-three/postprocessing": "https://aistudiocdn.com/@react-three/postprocessing@^3.0.4",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
+    "three": "https://aistudiocdn.com/three@^0.181.2",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
