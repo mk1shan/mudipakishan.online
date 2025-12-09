@@ -40,7 +40,20 @@
         background-color: #050505;
         color: #ffffff;
         overflow-x: hidden;
-        cursor: none; /* Custom cursor */
+        cursor: default;
+      }
+      
+      /* Minimal cursor styles */
+      a, button, [role="button"], [onclick] {
+        cursor: pointer !important;
+      }
+      
+      input, textarea, select {
+        cursor: text;
+      }
+      
+      a:hover, button:hover {
+        cursor: pointer;
       }
       /* Hide default scrollbar for cleaner look, strictly custom scroll or system invisible */
       ::-webkit-scrollbar {
