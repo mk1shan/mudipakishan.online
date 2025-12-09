@@ -16,11 +16,12 @@ export const PERSONAL_INFO = {
     address: "No,147, Kasagala, Weeraketiya",
     website: "https://mudipakishan.me",
     github: "https://github.com/mk1shan",
-    linkedin: "#" // Placeholder as per instructions
+    linkedin: "https://www.linkedin.com/in/mudipa-kishan/"
   },
   socials: [
     { name: "GitHub", icon: Github, url: "https://github.com/mk1shan" },
-    { name: "LinkedIn", icon: Linkedin, url: "#" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/mudipa-kishan/" },
+    { name: "Behance", icon: Globe, url: "https://www.behance.net/mudipakishan" },
     { name: "Email", icon: Mail, url: "mailto:mudipaimayangakdu@gmail.com" }
   ]
 };

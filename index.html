@@ -41,19 +41,39 @@
         color: #ffffff;
         overflow-x: hidden;
         cursor: default;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       
-      /* Minimal cursor styles */
+      /* Normal cursor styles */
       a, button, [role="button"], [onclick] {
-        cursor: pointer !important;
+        cursor: pointer;
       }
       
       input, textarea, select {
         cursor: text;
       }
       
+      /* Subtle cursor hover effects */
       a:hover, button:hover {
         cursor: pointer;
+      }
+      
+      /* Mobile optimizations */
+      @media (max-width: 640px) {
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+        
+        button, a {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
       }
       /* Hide default scrollbar for cleaner look, strictly custom scroll or system invisible */
       ::-webkit-scrollbar {
