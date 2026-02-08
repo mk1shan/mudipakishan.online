@@ -64,6 +64,42 @@ export const EDUCATION: Education[] = [
 
 export const PROJECTS: Project[] = [
   {
+    id: "frontend-eks-deploy",
+    title: "Frontend Application Deployment on Amazon EKS",
+    category: "Cloud Deployment",
+    year: "2024",
+    description: "Automated deployment pipeline for a frontend application on Amazon EKS using Jenkins or Terraform.",
+    tech: ["AWS EKS", "Terraform", "Jenkins", "Docker", "Kubernetes"],
+    link: "https://github.com/mk1shan/Frontend-Application-Deployment-on-Amazon-EKS"
+  },
+  {
+    id: "global-insights-devsecops",
+    title: "Global Insights DevSecOps",
+    category: "DevSecOps Pipeline",
+    year: "2024",
+    description: "Comprehensive DevSecOps pipeline implementation featuring security scanning, continuous integration, and monitoring.",
+    tech: ["Jenkins", "SonarQube", "Trivy", "Prometheus", "Grafana"],
+    link: "https://github.com/mk1shan/Devsecops-project-global-insights"
+  },
+  {
+    id: "wallpaper-app-devsecops",
+    title: "Wallpaper App DevSecOps",
+    category: "Secure CI/CD",
+    year: "2024",
+    description: "End-to-end DevSecOps pipeline for the Wallpaper App, integrating security checks and automated deployment.",
+    tech: ["Jenkins", "OWASP ZAP", "Docker", "Kubernetes", "AWS"],
+    link: "https://github.com/mk1shan/wallpaper-app-devscops-project"
+  },
+  {
+    id: "three-tier-devops",
+    title: "Three-Tier DevOps Project",
+    category: "Infrastructure Architecture",
+    year: "2024",
+    description: "Deployment of a three-tier architecture application using modern DevOps practices and Infrastructure as Code.",
+    tech: ["Terraform", "AWS", "Docker", "Kubernetes", "MySQL"],
+    link: "https://github.com/mk1shan/Three-tier-devops-project"
+  },
+  {
     id: "edureliefsl",
     title: "EduReliefSL",
     category: "Social Impact Platform",
@@ -109,37 +145,30 @@ export const PROJECTS: Project[] = [
     description: "Dental hospital management system for patient, doctor, and user management.",
     tech: ["HTML", "CSS", "JS", "PHP"],
     link: "#"
-  }
+  },
 ];
 
 export const CERTIFICATES: Certificate[] = [
   {
-    id: "coursera-1",
-    title: "Professional Certification",
+    id: "decoding-devops-ai",
+    title: "Decoding DevOps From Basics to Advanced Projects with AI",
+    issuer: "Udemy",
+    link: "https://www.udemy.com/certificate/UC-b0d556de-f602-45c7-b5cd-ec9012891939/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
+    date: "2024"
+  },
+  {
+    id: "aws-services-overview",
+    title: "AWS Services Overview for IT Professionals",
     issuer: "Coursera",
+    link: "https://www.coursera.org/account/accomplishments/certificate/H4XPVFV8DAJR",
+    date: "2024"
+  },
+  {
+    id: "linux-beginners-kodekloud",
+    title: "Linux for beginners with Hands on Labs",
+    issuer: "Kodekloud",
     link: "https://www.coursera.org/account/accomplishments/verify/768HITNDLH1U?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
-    date: "2023"
-  },
-  {
-    id: "credly-1",
-    title: "Professional Badge",
-    issuer: "Credly",
-    link: "https://www.credly.com/badges/97f52a33-0d5c-4219-b735-6624bb37b827/linked_in_profile",
-    date: "2023"
-  },
-  {
-    id: "coursera-2",
-    title: "Specialization Certificate",
-    issuer: "Coursera",
-    link: "https://coursera.org/share/e4b7801f20f555e21b2a773c49768875",
-    date: "2023"
-  },
-  {
-    id: "credly-2",
-    title: "Technical Achievement",
-    issuer: "Credly",
-    link: "https://www.credly.com/badges/36c76257-60f3-46e3-a3db-51efc2d281d2/linked_in_profile",
-    date: "2023"
+    date: "2024"
   }
 ];
 
