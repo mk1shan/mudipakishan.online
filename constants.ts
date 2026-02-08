@@ -11,7 +11,7 @@ export const PERSONAL_INFO = {
     "Creative Technologist"
   ],
   contact: {
-    email: "mudipaimayangakdu@gmail.com",
+    email: "mudipakishanimayanga@gmail.com",
     phone: "+94712416779",
     address: "No,147, Kasagala, Weeraketiya",
     website: "https://mudipakishan.me",
@@ -22,7 +22,7 @@ export const PERSONAL_INFO = {
     { name: "GitHub", icon: Github, url: "https://github.com/mk1shan" },
     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/mudipa-kishan/" },
     { name: "Behance", icon: ExternalLink, url: "https://www.behance.net/mudipakishan" },
-    { name: "Email", icon: Mail, url: "mailto:mudipaimayangakdu@gmail.com" }
+    { name: "Email", icon: Mail, url: "mailto:mudipakishanimayanga@gmail.com" }
   ]
 };
 
@@ -43,13 +43,13 @@ export const EXPERIENCE: Experience[] = [
     id: "avantrio",
     role: "Trainee Software Engineer",
     company: "Avantrio (Pvt) Ltd",
-    period: "Jul 2024 – Present",
+    period: "Jul 2024 – Dec 2024",
     description: [
-      "Built mental health tracking tools and emotion diary applications.",
-      "Developed mood-based recommendations using LLMs (Cohere).",
-      "Created stress-relief mini-games and depression-level analysis tools."
+      "Engineered backend solutions using NestJS and Neo4j for scalable graph-based data management.",
+      "Developed full-stack features using the MERN stack, ensuring seamless integration between frontend and backend.",
+      "Built dynamic, high-performance user interfaces with React, adhering to modern design principles."
     ],
-    tech: ["RASA", "Python", "React.js", "Firebase", "LLM (Cohere)"]
+    tech: ["NestJS", "Neo4j", "React.js", "MERN Stack", "TypeScript"]
   }
 ];
 
@@ -169,24 +169,58 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "Kodekloud",
     link: "https://www.coursera.org/account/accomplishments/verify/768HITNDLH1U?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
     date: "2024"
+  },
+  {
+    id: "aws-cloud-101",
+    title: "AWS Educate Introduction to Cloud 101",
+    issuer: "AWS",
+    link: "https://www.credly.com/badges/36c76257-60f3-46e3-a3db-51efc2d281d2/linked_in_profile",
+    date: "2024"
+  },
+  {
+    id: "aws-storage-started",
+    title: "AWS Educate Getting Started with Storage",
+    issuer: "AWS",
+    link: "https://www.credly.com/badges/33b86046-9f07-4de1-902e-64b0e52fd515/linked_in_profile",
+    date: "2024"
   }
 ];
 
 export const SKILLS: SkillCategory[] = [
   {
-    name: "Frontend",
-    skills: ["React.js", "Next.js", "Three.js", "Astro.js", "Gatsby.js", "Tailwind CSS", "Framer Motion"]
+    name: "Cloud Platforms",
+    skills: ["AWS (EC2, EKS, VPC, S3, IAM, ECR, Fargate)", "Azure"]
   },
   {
-    name: "Backend",
-    skills: ["Node.js", "NestJS", "Express", "Python", "Java", "PHP"]
+    name: "Containerization & Orchestration",
+    skills: ["Kubernetes (EKS, Kind, Kubeadm)", "Docker (Multi-stage builds)"]
   },
   {
-    name: "Data & AI",
-    skills: ["SQL", "MySQL", "Firebase", "RASA", "LLM Integrations"]
+    name: "Infrastructure as Code (IaC)",
+    skills: ["Terraform"]
   },
   {
-    name: "DevOps & Tools",
-    skills: ["Docker", "AWS", "Git", "Figma", "CI/CD"]
+    name: "CI/CD & GitOps",
+    skills: ["Jenkins", "GitHub Actions", "Argo CD"]
+  },
+  {
+    name: "Security & Quality",
+    skills: ["SonarQube (Static Analysis)", "Trivy"]
+  },
+  {
+    name: "Monitoring & Observability",
+    skills: ["Prometheus", "Grafana", "Node Exporter"]
+  },
+  {
+    name: "Programming & Scripting",
+    skills: ["Python", "Java", "JavaScript", "Node.js", "Bash"]
+  },
+  {
+    name: "Web & Frameworks",
+    skills: ["React", "NestJS", "Vite", "Astro.js"]
+  },
+  {
+    name: "Databases",
+    skills: ["SQL", "MongoDB"]
   }
 ];
