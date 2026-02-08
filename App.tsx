@@ -317,13 +317,15 @@ const ProjectRow: React.FC<{ project: Project; index: number }> = ({ project, in
       transition={{ delay: index * 0.1 }}
       className="group relative block border-t border-white/10 py-6 sm:py-8 md:py-12 hover:bg-white/5 transition-colors duration-500"
     >
-      <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-3 sm:gap-4 px-2 sm:px-4">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display font-bold uppercase group-hover:translate-x-2 md:group-hover:translate-x-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-          {project.title}
-        </h3>
-        <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-16 group-hover:-translate-x-2 md:group-hover:-translate-x-4 transition-transform duration-500">
-          <span className="font-mono text-[10px] sm:text-xs md:text-sm text-accent">{project.category}</span>
-          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:items-center px-2 sm:px-4">
+        <div className="md:col-span-8 lg:col-span-9">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display font-bold uppercase group-hover:translate-x-2 md:group-hover:translate-x-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] break-words">
+            {project.title}
+          </h3>
+        </div>
+        <div className="md:col-span-4 lg:col-span-3 flex md:justify-end items-center gap-4 sm:gap-6 group-hover:-translate-x-2 md:group-hover:-translate-x-4 transition-transform duration-500">
+          <span className="font-mono text-[10px] sm:text-xs md:text-sm text-accent text-right">{project.category}</span>
+          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
         </div>
       </div>
 
