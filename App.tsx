@@ -227,7 +227,7 @@ const Hero = () => {
     <section id="hero" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 overflow-hidden pt-16 md:pt-0">
       {/* Huge Typography Background */}
       <div className="absolute inset-0 flex flex-col justify-center items-center opacity-15 sm:opacity-20 pointer-events-none select-none">
-        <h1 className="text-[20vw] sm:text-[15vw] leading-none font-black text-stroke">DEVOPS</h1>
+        <h1 className="text-[20vw] sm:text-[15vw] leading-none font-black text-stroke">ENGINEER</h1>
       </div>
 
       <div className="relative z-10 text-center mix-blend-difference w-full">
@@ -238,7 +238,7 @@ const Hero = () => {
         >
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-display font-bold uppercase leading-[0.9] tracking-tighter mb-4 sm:mb-6 px-2">
             Software<br />
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px #fff' }}>& DevOps</span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px #fff' }}>Engineer</span>
           </h1>
         </motion.div>
 
@@ -249,7 +249,7 @@ const Hero = () => {
           className="flex flex-col items-center gap-4"
         >
           <p className="font-mono text-xs sm:text-sm md:text-base text-white/70 max-w-md mx-auto px-4">
-            Blending architectural code with robust operations to build scalable digital ecosystems.
+            Crafting scalable backend architectures and robust full-stack solutions to build dynamic digital ecosystems.
           </p>
           <div className="w-[1px] h-16 sm:h-24 bg-accent mt-4 sm:mt-8"></div>
         </motion.div>
@@ -271,10 +271,10 @@ const About = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
         <div className="md:col-span-8 text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed font-light">
           <p className="mb-6 sm:mb-8">
-            I am <span className="text-accent">Mudipa Kishan</span>. An Associate Software Engineer bridging the gap between <span className="italic font-serif">development</span> and <span className="italic font-serif">operations</span>.
+            I am <span className="text-accent">Mudipa Kishan</span>. A Software Engineer specializing in <span className="italic font-serif">scalable</span> and <span className="italic font-serif">robust</span> backend systems.
           </p>
           <p className="text-white/60 text-base sm:text-lg md:text-xl lg:text-2xl">
-            With a background at Axceera and Avantrio, I now specialize in designing scalable cloud architectures, automating CI/CD pipelines, and building resilient full-stack applications. I don't just write code; I engineer reliable systems.
+            With a strong background in software development, I specialize in designing scalable APIs, robust backend architectures, and engaging full-stack applications. I don't just write code; I engineer reliable software.
           </p>
         </div>
 
@@ -293,10 +293,10 @@ const About = () => {
           <div>
             <h3 className="text-white mb-3 sm:mb-4 text-sm sm:text-base uppercase tracking-widest border-b border-white/10 pb-2">Focus</h3>
             <ul className="space-y-1 text-xs sm:text-sm">
-              <li>DevOps Engineering</li>
-              <li>Cloud Architecture</li>
+              <li>Backend Architecture</li>
+              <li>API Development</li>
               <li>Full Stack Development</li>
-              <li>System Automation</li>
+              <li>Database Design</li>
             </ul>
           </div>
         </div>

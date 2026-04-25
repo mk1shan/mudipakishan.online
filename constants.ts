@@ -4,52 +4,66 @@ import { Github, Linkedin, Mail, MapPin, Phone, Globe, ExternalLink } from 'luci
 export const PERSONAL_INFO = {
   name: "Mudipa Kishan",
   initials: "MK",
-  role: "Associate Software Engineer",
+  role: "Software Engineer",
   taglines: [
-    "DevOps Engineer",
-    "Software Engineer",
-    "Creative Technologist"
+    "Fullstack Software Engineer",
+    "Backend Specialist",
+    "API Developer"
   ],
   contact: {
     email: "mudipakishanimayanga@gmail.com",
-    phone: "+94712416779",
-    address: "No,147, Kasagala, Weeraketiya",
-    website: "https://mudipakishan.me",
+    phone: "+94 712416779",
+    address: "NO/147 Janaudanagama/Kasagala/Weerekatiya",
+    website: "https://mudipakishan.online",
     github: "https://github.com/mk1shan",
     linkedin: "https://www.linkedin.com/in/mudipa-kishan/"
   },
   socials: [
     { name: "GitHub", icon: Github, url: "https://github.com/mk1shan" },
     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/mudipa-kishan/" },
-    { name: "Behance", icon: ExternalLink, url: "https://www.behance.net/mudipakishan" },
-    { name: "Email", icon: Mail, url: "mailto:mudipakishanimayanga@gmail.com" }
+    { name: "Email", icon: Mail, url: "mailto:mudipakishanimayanga@gmail.com" },
+    { name: "Website", icon: Globe, url: "https://mudipakishan.online" }
   ]
 };
 
 export const EXPERIENCE: Experience[] = [
   {
+    id: "pixelx",
+    role: "Software Engineer",
+    company: "PixelX Solutions",
+    period: "Aug 2025 – Present",
+    description: [
+      "Developed backend services using NestJS and TypeScript.",
+      "Built and integrated React components with backend APIs.",
+      "Implemented Firebase authentication and Docker deployment.",
+      "Improved system performance and stability in production."
+    ],
+    tech: ["NestJS", "TypeScript", "React", "Firebase", "Docker"]
+  },
+  {
     id: "axceera",
     role: "Associate Software Engineer",
     company: "Axceera",
-    period: "Jan 2025 – Sep 2025",
+    period: "Jan 2025 – Jul 2025",
     description: [
-      "Work with React.js, Node.js, cloud services, backend APIs, and production-grade engineering practices.",
-      "Contribute to scalable architectures, feature ownership, and performance improvements.",
-      "Follow industry best practices: CI/CD, testing, code reviews, design systems."
+      "Built REST APIs using NestJS for SaaS platform features.",
+      "Implemented JWT and OAuth (Google, Apple, Facebook) authentication.",
+      "Integrated Stripe for payments and developed admin APIs.",
+      "Participated in client discussions to define technical requirements."
     ],
-    tech: ["React.js", "Node.js", "Cloud", "CI/CD"]
+    tech: ["NestJS", "JWT", "OAuth", "Stripe", "REST APIs"]
   },
   {
     id: "avantrio",
-    role: "Trainee Software Engineer",
-    company: "Avantrio (Pvt) Ltd",
-    period: "Jul 2024 – Dec 2024",
+    role: "Intern Software Engineer",
+    company: "Avantrio",
+    period: "Jul 2024 – Jan 2025",
     description: [
-      "Engineered backend solutions using NestJS and Neo4j for scalable graph-based data management.",
-      "Developed full-stack features using the MERN stack, ensuring seamless integration between frontend and backend.",
-      "Built dynamic, high-performance user interfaces with React, adhering to modern design principles."
+      "Developed backend APIs for search and data retrieval using NestJS.",
+      "Integrated MySQL databases and built React/Material UI components.",
+      "Assisted in backend debugging to improve API functionality."
     ],
-    tech: ["NestJS", "Neo4j", "React.js", "MERN Stack", "TypeScript"]
+    tech: ["NestJS", "MySQL", "React", "Material UI", "Backend APIs"]
   }
 ];
 
@@ -58,46 +72,50 @@ export const EDUCATION: Education[] = [
     id: "kdu",
     institution: "General Sir John Kotelawala Defence University",
     degree: "BSc (Hons) Software Engineering",
-    period: "2021 - 2025"
+    period: "2021 - 2024"
   }
 ];
 
 export const PROJECTS: Project[] = [
   {
-    id: "frontend-eks-deploy",
-    title: "Frontend Application Deployment on Amazon EKS",
-    category: "Cloud Deployment",
-    year: "2024",
-    description: "Automated deployment pipeline for a frontend application on Amazon EKS using Jenkins or Terraform.",
-    tech: ["AWS EKS", "Terraform", "Jenkins", "Docker", "Kubernetes"],
-    link: "https://github.com/mk1shan/Frontend-Application-Deployment-on-Amazon-EKS"
+    id: "oops",
+    title: "SaaS Digital Event Card Platform (Oops)",
+    category: "SaaS Application",
+    year: "2025",
+    description: "Developed over 25 REST APIs with NestJS; implemented subscription and coupon systems.",
+    tech: ["NestJS", "REST APIs", "Subscriptions", "Coupons"],
+    link: "#",
+    featured: true
   },
   {
-    id: "global-insights-devsecops",
-    title: "Global Insights DevSecOps",
+    id: "dentiverse",
+    title: "Healthcare Management Platform (Dentiverse)",
+    category: "Healthcare SaaS",
+    year: "2025",
+    description: "Built a multi-user SaaS system for patient management and appointments with OAuth and Stripe integration.",
+    tech: ["OAuth", "Stripe", "SaaS", "Patient Management"],
+    link: "#",
+    featured: true
+  },
+  {
+    id: "sinhala-space",
+    title: "Sinhala Dictionary & Linguistic Search (sinhala space)",
+    category: "Data & Search",
+    year: "2024",
+    description: "Integrated MySQL and Neo4j for relational data; implemented Singlish-to-Sinhala conversion.",
+    tech: ["MySQL", "Neo4j", "Linguistic Search", "Singlish to Sinhala"],
+    link: "#",
+    featured: true
+  },
+  {
+    id: "cloud-devsecops",
+    title: "Cloud DevSecOps Pipeline",
     category: "DevSecOps Pipeline",
     year: "2024",
-    description: "Comprehensive DevSecOps pipeline implementation featuring security scanning, continuous integration, and monitoring.",
-    tech: ["Jenkins", "SonarQube", "Trivy", "Prometheus", "Grafana"],
-    link: "https://github.com/mk1shan/Devsecops-project-global-insights"
-  },
-  {
-    id: "wallpaper-app-devsecops",
-    title: "Wallpaper App DevSecOps",
-    category: "Secure CI/CD",
-    year: "2024",
-    description: "End-to-end DevSecOps pipeline for the Wallpaper App, integrating security checks and automated deployment.",
-    tech: ["Jenkins", "OWASP ZAP", "Docker", "Kubernetes", "AWS"],
-    link: "https://github.com/mk1shan/wallpaper-app-devscops-project"
-  },
-  {
-    id: "three-tier-devops",
-    title: "Three-Tier DevOps Project",
-    category: "Infrastructure Architecture",
-    year: "2024",
-    description: "Deployment of a three-tier architecture application using modern DevOps practices and Infrastructure as Code.",
-    tech: ["Terraform", "AWS", "Docker", "Kubernetes", "MySQL"],
-    link: "https://github.com/mk1shan/Three-tier-devops-project"
+    description: "Built CI/CD pipelines using Jenkins and ArgoCD (GitOps) with SonarQube and Trivy security scanning.",
+    tech: ["Jenkins", "ArgoCD", "GitOps", "SonarQube", "Trivy"],
+    link: "https://github.com/mk1shan/Devsecops-project-global-insights",
+    featured: true
   },
   {
     id: "edureliefsl",
@@ -107,7 +125,7 @@ export const PROJECTS: Project[] = [
     description: "A dedicated educational relief platform for flood-affected students in Sri Lanka. Provides direct access to study notes ranging from Grade 1 to A/L with live-updated resource links.",
     tech: ["React.js", "Web Platform", "Cloud Storage"],
     link: "https://www.edureliefsl.xyz/",
-    featured: true
+    featured: false
   },
   {
     id: "emocare",
@@ -117,41 +135,21 @@ export const PROJECTS: Project[] = [
     description: "An AI-powered platform for depressed youth featuring mood-based recommendations, stress-relief games, and an emotion diary.",
     tech: ["RASA", "Python", "React.js", "Firebase", "LLM"],
     link: "#",
-    featured: true
-  },
-  {
-    id: "skillshare",
-    title: "Skillshare Platform",
-    category: "Knowledge Sharing",
-    year: "2024",
-    description: "A peer-to-peer knowledge sharing network with feed, profiles, article posting, and search capabilities.",
-    tech: ["React.js", "Firebase", "Node.js", "Express"],
-    link: "#"
-  },
-  {
-    id: "stockwise",
-    title: "StockWise",
-    category: "Inventory System",
-    year: "2024",
-    description: "Comprehensive inventory management system handling categories, users, customers, and orders with role-based logic.",
-    tech: ["Java", "MySQL"],
-    link: "#"
-  },
-  {
-    id: "tiny-teeth",
-    title: "Tiny Teeth",
-    category: "Hospital Management",
-    year: "2022",
-    description: "Dental hospital management system for patient, doctor, and user management.",
-    tech: ["HTML", "CSS", "JS", "PHP"],
-    link: "#"
-  },
+    featured: false
+  }
 ];
 
 export const CERTIFICATES: Certificate[] = [
   {
+    id: "aws-solutions-architect-2026",
+    title: "Ultimate AWS Certified Solutions Architect Associate 2026",
+    issuer: "Udemy",
+    link: "#",
+    date: "2026"
+  },
+  {
     id: "decoding-devops-ai",
-    title: "Decoding DevOps From Basics to Advanced Projects with AI",
+    title: "Decoding DevOps: From Basics to Advanced Projects",
     issuer: "Udemy",
     link: "https://www.udemy.com/certificate/UC-b0d556de-f602-45c7-b5cd-ec9012891939/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
     date: "2024"
@@ -165,62 +163,36 @@ export const CERTIFICATES: Certificate[] = [
   },
   {
     id: "linux-beginners-kodekloud",
-    title: "Linux for beginners with Hands on Labs",
+    title: "Linux for Beginners with Hands-on Labs",
     issuer: "Kodekloud",
     link: "https://www.coursera.org/account/accomplishments/verify/768HITNDLH1U?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
-    date: "2024"
-  },
-  {
-    id: "aws-cloud-101",
-    title: "AWS Educate Introduction to Cloud 101",
-    issuer: "AWS",
-    link: "https://www.credly.com/badges/36c76257-60f3-46e3-a3db-51efc2d281d2/linked_in_profile",
-    date: "2024"
-  },
-  {
-    id: "aws-storage-started",
-    title: "AWS Educate Getting Started with Storage",
-    issuer: "AWS",
-    link: "https://www.credly.com/badges/33b86046-9f07-4de1-902e-64b0e52fd515/linked_in_profile",
     date: "2024"
   }
 ];
 
 export const SKILLS: SkillCategory[] = [
   {
-    name: "Cloud Platforms",
-    skills: ["AWS (EC2, EKS, VPC, S3, IAM, ECR, Fargate)", "Azure"]
+    name: "Backend",
+    skills: ["NestJS", "Node.js", "REST APIs", "Prisma"]
   },
   {
-    name: "Containerization & Orchestration",
-    skills: ["Kubernetes (EKS, Kind, Kubeadm)", "Docker (Multi-stage builds)"]
-  },
-  {
-    name: "Infrastructure as Code (IaC)",
-    skills: ["Terraform"]
-  },
-  {
-    name: "CI/CD & GitOps",
-    skills: ["Jenkins", "GitHub Actions", "Argo CD"]
-  },
-  {
-    name: "Security & Quality",
-    skills: ["SonarQube (Static Analysis)", "Trivy"]
-  },
-  {
-    name: "Monitoring & Observability",
-    skills: ["Prometheus", "Grafana", "Node Exporter"]
-  },
-  {
-    name: "Programming & Scripting",
-    skills: ["Python", "Java", "JavaScript", "Node.js", "Bash"]
-  },
-  {
-    name: "Web & Frameworks",
-    skills: ["React", "NestJS", "Vite", "Astro.js"]
+    name: "Frontend",
+    skills: ["React js", "Next.js", "Material UI"]
   },
   {
     name: "Databases",
-    skills: ["SQL", "MongoDB"]
+    skills: ["MySQL", "PostgreSQL", "Neo4j"]
+  },
+  {
+    name: "Infrastructure",
+    skills: ["Docker", "Kubernetes (EKS)", "AWS", "Jenkins", "ArgoCD"]
+  },
+  {
+    name: "Auth & Payments",
+    skills: ["Firebase Auth", "OAuth", "JWT", "Stripe"]
+  },
+  {
+    name: "Languages",
+    skills: ["JavaScript", "TypeScript", "SQL"]
   }
 ];
