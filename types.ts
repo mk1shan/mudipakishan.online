@@ -6,7 +6,19 @@ export interface Project {
   tech: string[];
   year: string;
   link?: string;
+  github?: string;
+  npm?: string;
+  company?: string;
+  highlights?: string[];
+  projectType?: 'company' | 'personal' | 'opensource';
   featured?: boolean;
+}
+
+export interface OpenSourceContribution {
+  id: string;
+  project: string;
+  description: string;
+  link?: string;
 }
 
 export interface Experience {

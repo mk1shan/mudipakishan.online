@@ -3,10 +3,33 @@ import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from 'r
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { MeshDistortMaterial, Environment, ContactShadows, Stars, Float } from '@react-three/drei';
 import * as THREE from 'three';
-import { AnimatePresence, motion } from 'framer-motion';
-import { PERSONAL_INFO, EXPERIENCE, PROJECTS, SKILLS, CERTIFICATES, EDUCATION } from './constants';
-import { Project, Experience, Certificate, Education } from './types';
-import { ArrowUpRight, Award, ExternalLink, GraduationCap, Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import {
+  PERSONAL_INFO,
+  EXPERIENCE,
+  PROJECTS,
+  COMPANY_PROJECTS,
+  PERSONAL_PROJECTS,
+  OPEN_SOURCE_CONTRIBUTIONS,
+  SKILLS,
+  CERTIFICATES,
+  EDUCATION
+} from './constants';
+import { Project, Experience, Certificate, Education, OpenSourceContribution } from './types';
+import {
+  ArrowUpRight,
+  Award,
+  ExternalLink,
+  GraduationCap,
+  Menu,
+  X,
+  GitPullRequest,
+  CheckCircle2,
+  Mail,
+  Phone,
+  MapPin,
+  Globe
+} from 'lucide-react';
 import MediumArticles from './MediumArticles';
 
 // --- 3D SCENE: LIQUID CHROME ---
@@ -16,9 +39,8 @@ const LiquidSphere = () => {
   const { mouse, viewport, size } = useThree();
   const isMobile = size.width < 768;
 
-  useFrame((state) => {
+  useFrame(() => {
     if (meshRef.current) {
-      // Subtle follow mouse (reduced on mobile for performance)
       const x = (mouse.x * viewport.width) / 2;
       const y = (mouse.y * viewport.height) / 2;
 
@@ -31,7 +53,6 @@ const LiquidSphere = () => {
     }
   });
 
-  // Optimize geometry for mobile (reduced complexity for faster load)
   const segments = isMobile ? 32 : 64;
 
   return (
@@ -65,7 +86,6 @@ const BackgroundScene = () => {
       <ambientLight intensity={isMobile ? 0.6 : 0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={isMobile ? 1.2 : 1} castShadow={!isMobile} />
       <LiquidSphere />
-      {/* Reduced star count on mobile for performance */}
       <Stars
         radius={100}
         depth={50}
@@ -75,7 +95,6 @@ const BackgroundScene = () => {
         fade
         speed={1}
       />
-      {/* Lower shadow resolution on mobile */}
       <ContactShadows
         resolution={isMobile ? 512 : 1024}
         scale={10}
@@ -132,6 +151,7 @@ const Navbar = () => {
     { label: 'About', id: 'about', isPage: false },
     { label: 'Experience', id: 'experience', isPage: false },
     { label: 'Projects', id: 'projects', isPage: false },
+    { label: 'Open Source', id: 'opensource', isPage: false },
     { label: 'Education', id: 'education', isPage: false },
     { label: 'Articles', id: '/medium', isPage: true },
     { label: 'Contact', id: 'contact', isPage: false }
@@ -144,14 +164,14 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <button
-            onClick={() => handleNavigation('hero', false)} // Go to hero on home
-            className="flex flex-col hover:opacity-80 transition-opacity"
+            onClick={() => handleNavigation('hero', false)}
+            className="flex flex-col text-left hover:opacity-80 transition-opacity"
           >
             <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-white">
               MUDIPA KISHAN
             </span>
             <span className="text-[10px] sm:text-xs font-mono text-dim mt-0.5">
-              PORTFOLIO '25
+              FULLSTACK ENGINEER
             </span>
           </button>
 
@@ -159,7 +179,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-8">
             <div className="hidden lg:flex flex-col items-end text-xs font-mono text-dim mr-4">
               <span>AVAILABLE FOR WORK</span>
-              <span>BASED IN SRI LANKA</span>
+              <span>TANGALLE, SRI LANKA</span>
             </div>
             <div className="flex items-center gap-6">
               {navItems.map((item) => (
@@ -206,7 +226,7 @@ const Navbar = () => {
             ))}
             <div className="pt-4 border-t border-white/10 text-xs font-mono text-dim space-y-1">
               <div>AVAILABLE FOR WORK</div>
-              <div>BASED IN SRI LANKA</div>
+              <div>TANGALLE, SRI LANKA</div>
             </div>
           </div>
         </motion.div>
@@ -227,18 +247,21 @@ const Hero = () => {
     <section id="hero" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 overflow-hidden pt-16 md:pt-0">
       {/* Huge Typography Background */}
       <div className="absolute inset-0 flex flex-col justify-center items-center opacity-15 sm:opacity-20 pointer-events-none select-none">
-        <h1 className="text-[20vw] sm:text-[15vw] leading-none font-black text-stroke">ENGINEER</h1>
+        <h1 className="text-[18vw] sm:text-[14vw] leading-none font-black text-stroke">FULLSTACK</h1>
       </div>
 
-      <div className="relative z-10 text-center mix-blend-difference w-full">
+      <div className="relative z-10 text-center mix-blend-difference w-full max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-display font-bold uppercase leading-[0.9] tracking-tighter mb-4 sm:mb-6 px-2">
-            Software<br />
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px #fff' }}>Engineer</span>
+          <div className="font-mono text-accent text-xs sm:text-sm md:text-base tracking-widest uppercase mb-3">
+            NestJS · React/Next.js · Spring Boot · AWS
+          </div>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold uppercase leading-[0.95] tracking-tighter mb-4 sm:mb-6 px-2">
+            Fullstack<br />
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px #fff' }}>Software Engineer</span>
           </h1>
         </motion.div>
 
@@ -248,16 +271,16 @@ const Hero = () => {
           transition={{ delay: 0.5, duration: 1 }}
           className="flex flex-col items-center gap-4"
         >
-          <p className="font-mono text-xs sm:text-sm md:text-base text-white/70 max-w-md mx-auto px-4">
-            Crafting scalable backend architectures and robust full-stack solutions to build dynamic digital ecosystems.
+          <p className="font-mono text-xs sm:text-sm md:text-base text-white/70 max-w-xl mx-auto px-4 leading-relaxed">
+            Developing and delivering production web applications across frontend and backend environments with robust APIs, authentication, and cloud-based deployments.
           </p>
-          <div className="w-[1px] h-16 sm:h-24 bg-accent mt-4 sm:mt-8"></div>
+          <div className="w-[1px] h-14 sm:h-20 bg-accent mt-4 sm:mt-6"></div>
         </motion.div>
       </div>
 
       <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 sm:gap-0 font-mono text-[10px] sm:text-xs text-white/50">
         <span className="hidden sm:inline">SCROLL TO EXPLORE</span>
-        <span className="text-accent animate-pulse">● OPEN FOR OPPORTUNITIES</span>
+        <span className="text-accent animate-pulse">● OPEN FOR OPPORTUNITIES · SRI LANKA</span>
       </div>
     </section>
   );
@@ -266,112 +289,94 @@ const Hero = () => {
 const About = () => {
   return (
     <section id="about" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
-      <SectionHeader number="01" title="The Engineer" />
+      <SectionHeader number="01" title="Profile & Skills" />
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
-        <div className="md:col-span-8 text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed font-light">
-          <p className="mb-6 sm:mb-8">
-            I am <span className="text-accent">Mudipa Kishan</span>. A Software Engineer specializing in <span className="italic font-serif">scalable</span> and <span className="italic font-serif">robust</span> backend systems.
+        <div className="md:col-span-7 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-light">
+          <p className="mb-6 text-white font-normal">
+            I am <span className="text-accent font-semibold">{PERSONAL_INFO.name}</span>. A Fullstack Software Engineer with professional experience developing and delivering production web applications across frontend and backend environments.
           </p>
-          <p className="text-white/60 text-base sm:text-lg md:text-xl lg:text-2xl">
-            With a strong background in software development, I specialize in designing scalable APIs, robust backend architectures, and engaging full-stack applications. I don't just write code; I engineer reliable software.
+          <p className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed mb-6">
+            {PERSONAL_INFO.profile}
           </p>
-        </div>
-
-        <div className="md:col-span-4 font-mono text-xs sm:text-sm text-white/50 space-y-6 sm:space-y-8">
-          <div>
-            <h3 className="text-white mb-3 sm:mb-4 text-sm sm:text-base uppercase tracking-widest border-b border-white/10 pb-2">Tech Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {SKILLS.flatMap(s => s.skills).map((skill, i) => (
-                <span key={i} className="px-2 py-1 text-[10px] sm:text-xs border border-white/10 rounded-full hover:border-accent hover:text-accent transition-colors">
-                  {skill}
-                </span>
-              ))}
+          <div className="pt-4 border-t border-white/10 flex flex-wrap gap-4 text-xs font-mono text-white/60">
+            <div className="flex items-center gap-2">
+              <MapPin size={14} className="text-accent" />
+              <span>{PERSONAL_INFO.location}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail size={14} className="text-accent" />
+              <span>{PERSONAL_INFO.contact.email}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone size={14} className="text-accent" />
+              <span>{PERSONAL_INFO.contact.phone}</span>
             </div>
           </div>
+        </div>
 
-          <div>
-            <h3 className="text-white mb-3 sm:mb-4 text-sm sm:text-base uppercase tracking-widest border-b border-white/10 pb-2">Focus</h3>
-            <ul className="space-y-1 text-xs sm:text-sm">
-              <li>Backend Architecture</li>
-              <li>API Development</li>
-              <li>Full Stack Development</li>
-              <li>Database Design</li>
-            </ul>
+        <div className="md:col-span-5 font-mono space-y-6">
+          <h3 className="text-white text-sm sm:text-base uppercase tracking-widest border-b border-white/10 pb-2 flex items-center justify-between">
+            <span>Technical Skills</span>
+            <span className="text-accent text-xs">CV Verified</span>
+          </h3>
+
+          <div className="space-y-4">
+            {SKILLS.map((cat) => (
+              <div key={cat.name} className="border border-white/5 bg-surface/40 p-3 sm:p-4 rounded-lg">
+                <span className="text-accent text-xs tracking-wider block mb-2 uppercase font-bold">
+                  {cat.name}
+                </span>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  {cat.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2 py-0.5 text-[10px] sm:text-xs border border-white/10 rounded bg-white/5 hover:border-accent hover:text-accent transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </section>
-  );
-};
-
-const ProjectRow: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
-  return (
-    <motion.a
-      href={project.link}
-      target="_blank"
-      rel="noreferrer"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="group relative block border-t border-white/10 py-6 sm:py-8 md:py-12 hover:bg-white/5 transition-colors duration-500"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:items-center px-2 sm:px-4">
-        <div className="md:col-span-8 lg:col-span-9">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display font-bold uppercase group-hover:translate-x-2 md:group-hover:translate-x-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] break-words">
-            {project.title}
-          </h3>
-        </div>
-        <div className="md:col-span-4 lg:col-span-3 flex md:justify-end items-center gap-4 sm:gap-6 group-hover:-translate-x-2 md:group-hover:-translate-x-4 transition-transform duration-500">
-          <span className="font-mono text-[10px] sm:text-xs md:text-sm text-accent text-right">{project.category}</span>
-          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
-        </div>
-      </div>
-
-      {/* Description Reveal */}
-      <div className="max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500 px-2 sm:px-4">
-        <p className="pt-3 sm:pt-4 text-white/60 max-w-2xl font-mono text-xs sm:text-sm">{project.description}</p>
-        <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
-          {project.tech.map((t: string) => (
-            <span key={t} className="text-[9px] sm:text-[10px] border border-white/10 px-2 py-0.5 rounded-full text-white/40">{t}</span>
-          ))}
-        </div>
-      </div>
-    </motion.a>
-  );
-};
-
-const Projects = () => {
-  return (
-    <section id="projects" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
-      <SectionHeader number="02" title="Selected Works" />
-      <div className="flex flex-col">
-        {PROJECTS.map((project, index) => (
-          <ProjectRow key={project.id} project={project} index={index} />
-        ))}
-      </div>
-      <div className="border-t border-white/10"></div>
     </section>
   );
 };
 
 const ExperienceItem: React.FC<{ exp: Experience }> = ({ exp }) => (
-  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 md:gap-8 py-6 sm:py-8 md:py-12 border-b border-white/10 group hover:border-accent/50 transition-colors">
-    <div className="md:col-span-3 font-mono text-xs sm:text-sm text-white/50">
-      {exp.period}
+  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 md:gap-8 py-8 sm:py-10 border-b border-white/10 group hover:border-accent/50 transition-colors">
+    <div className="md:col-span-3 font-mono text-xs sm:text-sm text-accent">
+      <span className="inline-block px-2.5 py-1 border border-accent/20 bg-accent/5 rounded">
+        {exp.period}
+      </span>
     </div>
     <div className="md:col-span-9">
-      <h3 className="text-xl sm:text-2xl font-display font-bold mb-1 group-hover:text-accent transition-colors">{exp.role}</h3>
-      <h4 className="text-base sm:text-lg text-white/80 mb-4 sm:mb-6">{exp.company}</h4>
-      <ul className="space-y-2 text-sm sm:text-base text-white/60 font-light list-none">
+      <h3 className="text-xl sm:text-2xl font-display font-bold mb-1 group-hover:text-accent transition-colors">
+        {exp.role}
+      </h3>
+      <h4 className="text-base sm:text-lg text-white/90 font-medium mb-4">
+        {exp.company}
+      </h4>
+      <ul className="space-y-2.5 text-sm sm:text-base text-white/70 font-light list-none mb-4">
         {exp.description.map((item: string, i: number) => (
-          <li key={i} className="flex items-start gap-2 sm:gap-3">
+          <li key={i} className="flex items-start gap-2.5">
             <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 shrink-0"></span>
             <span>{item}</span>
           </li>
         ))}
       </ul>
+      {exp.tech && (
+        <div className="flex flex-wrap gap-2 pt-2">
+          {exp.tech.map((t) => (
+            <span key={t} className="text-[10px] sm:text-xs font-mono border border-white/10 px-2 py-0.5 rounded text-white/50">
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 );
@@ -379,7 +384,7 @@ const ExperienceItem: React.FC<{ exp: Experience }> = ({ exp }) => (
 const ExperienceSection = () => {
   return (
     <section id="experience" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
-      <SectionHeader number="03" title="Trajectory" />
+      <SectionHeader number="02" title="Work Experience" />
       <div className="flex flex-col">
         {EXPERIENCE.map((exp) => (
           <ExperienceItem key={exp.id} exp={exp} />
@@ -389,15 +394,190 @@ const ExperienceSection = () => {
   );
 };
 
+const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08 }}
+      className="border border-white/10 hover:border-accent/60 bg-surface/40 backdrop-blur-sm p-6 sm:p-8 rounded-xl transition-all duration-300 flex flex-col justify-between group"
+    >
+      <div>
+        <div className="flex justify-between items-start gap-4 mb-3">
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-accent/10 text-accent border border-accent/20 rounded">
+              {project.category}
+            </span>
+            {project.company && (
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-white/5 text-white/70 border border-white/10 rounded">
+                {project.company}
+              </span>
+            )}
+          </div>
+          <span className="font-mono text-xs text-white/40">{project.year}</span>
+        </div>
+
+        <h3 className="text-xl sm:text-2xl font-display font-bold group-hover:text-accent transition-colors mb-3">
+          {project.title}
+        </h3>
+
+        <p className="text-sm sm:text-base text-white/70 font-light mb-4 leading-relaxed">
+          {project.description}
+        </p>
+
+        {project.highlights && project.highlights.length > 0 && (
+          <div className="mb-4 pt-3 border-t border-white/10 space-y-2">
+            {(expanded ? project.highlights : project.highlights.slice(0, 3)).map((hl, i) => (
+              <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-white/60">
+                <CheckCircle2 size={14} className="text-accent mt-0.5 shrink-0" />
+                <span>{hl}</span>
+              </div>
+            ))}
+            {project.highlights.length > 3 && (
+              <button
+                onClick={() => setExpanded(!expanded)}
+                className="text-xs font-mono text-accent hover:underline pt-1"
+              >
+                {expanded ? "Show less" : `+${project.highlights.length - 3} more details`}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="pt-4 border-t border-white/10">
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tech.map((t) => (
+            <span key={t} className="text-[10px] sm:text-xs font-mono px-2 py-0.5 bg-white/5 border border-white/10 rounded text-white/60">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-white/80 hover:text-accent transition-colors uppercase tracking-wider"
+          >
+            <span>View Source / Details</span>
+            <ExternalLink size={14} />
+          </a>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+const ProjectsSection = () => {
+  const [filter, setFilter] = useState<'all' | 'company' | 'personal'>('all');
+
+  const displayedProjects = filter === 'all'
+    ? PROJECTS
+    : filter === 'company'
+      ? COMPANY_PROJECTS
+      : PERSONAL_PROJECTS;
+
+  return (
+    <section id="projects" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
+      <SectionHeader number="03" title="Projects & Platforms" />
+
+      {/* Filter Tabs */}
+      <div className="flex flex-wrap gap-2 sm:gap-3 mb-8 sm:mb-12 font-mono text-xs">
+        <button
+          onClick={() => setFilter('all')}
+          className={`px-4 py-2 rounded-full border transition-all ${filter === 'all'
+            ? 'bg-accent text-black font-bold border-accent'
+            : 'border-white/10 text-white/70 hover:border-white/30'
+            }`}
+        >
+          ALL PROJECTS ({PROJECTS.length})
+        </button>
+        <button
+          onClick={() => setFilter('company')}
+          className={`px-4 py-2 rounded-full border transition-all ${filter === 'company'
+            ? 'bg-accent text-black font-bold border-accent'
+            : 'border-white/10 text-white/70 hover:border-white/30'
+            }`}
+        >
+          COMPANY PLATFORMS (PIXELX) ({COMPANY_PROJECTS.length})
+        </button>
+        <button
+          onClick={() => setFilter('personal')}
+          className={`px-4 py-2 rounded-full border transition-all ${filter === 'personal'
+            ? 'bg-accent text-black font-bold border-accent'
+            : 'border-white/10 text-white/70 hover:border-white/30'
+            }`}
+        >
+          PERSONAL & OPEN-SOURCE ({PERSONAL_PROJECTS.length})
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {displayedProjects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const OpenSourceSection = () => {
+  return (
+    <section id="opensource" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
+      <SectionHeader number="04" title="Open Source Contributions" />
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        {OPEN_SOURCE_CONTRIBUTIONS.map((item) => (
+          <a
+            key={item.id}
+            href={item.link || "https://github.com/mk1shan"}
+            target="_blank"
+            rel="noreferrer"
+            className="group border border-white/10 p-6 rounded-xl hover:border-accent bg-surface/30 backdrop-blur-sm transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex justify-between items-start mb-4">
+                <div className="p-2 bg-white/5 rounded-lg group-hover:bg-accent group-hover:text-black transition-colors">
+                  <GitPullRequest size={18} />
+                </div>
+                <ArrowUpRight size={16} className="text-white/40 group-hover:text-accent transition-colors" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-white mb-2 group-hover:text-accent transition-colors">
+                {item.project}
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 font-mono leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-white/40">
+              <span>CONTRIBUTION</span>
+              <span className="text-accent group-hover:underline">VIEW ON GITHUB</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const EducationItem: React.FC<{ edu: Education }> = ({ edu }) => (
   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 md:gap-8 py-6 sm:py-8 border-b border-white/10 group hover:border-accent/50 transition-colors">
-    <div className="md:col-span-3 font-mono text-xs sm:text-sm text-white/50">
-      {edu.period}
+    <div className="md:col-span-3 font-mono text-xs sm:text-sm text-accent">
+      <span className="inline-block px-2.5 py-1 border border-accent/20 bg-accent/5 rounded">
+        {edu.period}
+      </span>
     </div>
     <div className="md:col-span-9 flex flex-col gap-2">
-      <h3 className="text-xl sm:text-2xl font-display font-bold group-hover:text-accent transition-colors">{edu.institution}</h3>
+      <h3 className="text-xl sm:text-2xl font-display font-bold group-hover:text-accent transition-colors">
+        {edu.institution}
+      </h3>
       <h4 className="text-base sm:text-lg text-white/80 flex items-center gap-2">
-        <GraduationCap size={18} className="sm:w-5 sm:h-5 text-accent shrink-0" />
+        <GraduationCap size={18} className="text-accent shrink-0" />
         <span>{edu.degree}</span>
       </h4>
     </div>
@@ -407,11 +587,24 @@ const EducationItem: React.FC<{ edu: Education }> = ({ edu }) => (
 const EducationSection = () => {
   return (
     <section id="education" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
-      <SectionHeader number="04" title="Education" />
-      <div className="flex flex-col">
-        {EDUCATION.map((edu) => (
-          <EducationItem key={edu.id} edu={edu} />
-        ))}
+      <SectionHeader number="05" title="Education & Credentials" />
+
+      <div className="mb-12">
+        <h3 className="text-xs font-mono uppercase tracking-widest text-accent mb-4">Degree</h3>
+        <div className="flex flex-col">
+          {EDUCATION.map((edu) => (
+            <EducationItem key={edu.id} edu={edu} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-xs font-mono uppercase tracking-widest text-accent mb-6">Courses & Certificates</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {CERTIFICATES.map((cert) => (
+            <CertificateCard key={cert.id} cert={cert} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -422,64 +615,66 @@ const CertificateCard: React.FC<{ cert: Certificate }> = ({ cert }) => (
     href={cert.link}
     target="_blank"
     rel="noreferrer"
-    className="group border border-white/10 p-6 sm:p-8 flex flex-col justify-between hover:border-accent transition-all duration-300 bg-surface/30 backdrop-blur-sm min-h-[180px] sm:min-h-[200px]"
+    className="group border border-white/10 p-6 flex flex-col justify-between hover:border-accent transition-all duration-300 bg-surface/30 backdrop-blur-sm min-h-[180px] rounded-xl"
   >
-    <div className="flex justify-between items-start mb-4 sm:mb-6">
-      <div className="p-2 sm:p-3 bg-white/5 rounded-full group-hover:bg-accent group-hover:text-black transition-colors duration-300">
-        <Award size={20} className="sm:w-6 sm:h-6" />
+    <div className="flex justify-between items-start mb-4">
+      <div className="p-2 sm:p-2.5 bg-white/5 rounded-lg group-hover:bg-accent group-hover:text-black transition-colors duration-300">
+        <Award size={20} />
       </div>
-      <ExternalLink size={18} className="sm:w-5 sm:h-5 text-white/30 group-hover:text-accent transition-colors duration-300" />
+      <ExternalLink size={16} className="text-white/30 group-hover:text-accent transition-colors duration-300" />
     </div>
 
     <div>
-      <h3 className="text-base sm:text-lg md:text-xl font-display font-bold uppercase leading-tight mb-2 group-hover:text-accent transition-colors duration-300">
+      <h3 className="text-sm sm:text-base font-display font-bold uppercase leading-snug mb-2 group-hover:text-accent transition-colors duration-300">
         {cert.title}
       </h3>
-      <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-white/50 uppercase">
+      <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono text-white/50 uppercase">
         <span className="text-accent">{cert.issuer}</span>
+        {cert.date && <span>{cert.date}</span>}
       </div>
     </div>
   </a>
 );
 
-const Certificates = () => {
-  return (
-    <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8 lg:px-20 max-w-7xl mx-auto">
-      <SectionHeader number="05" title="Credentials" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {CERTIFICATES.map((cert) => (
-          <CertificateCard key={cert.id} cert={cert} />
-        ))}
-      </div>
-    </section>
-  );
-};
-
 const Footer = () => {
   return (
     <footer id="contact" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 lg:px-20 border-t border-white/10 bg-surface relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10 text-center">
+        <div className="font-mono text-accent text-xs sm:text-sm tracking-widest uppercase mb-3">
+          Get In Touch
+        </div>
         <h2 className="text-[12vw] sm:text-[10vw] font-black uppercase leading-none mb-8 sm:mb-12 mix-blend-difference hover:text-stroke-accent transition-all duration-500">
           Let's Talk
         </h2>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6 sm:gap-8 md:gap-16 mb-12 sm:mb-16">
-          <a href={`mailto:${PERSONAL_INFO.contact.email}`} className="px-6 sm:px-8 py-3 sm:py-4 border border-white/20 rounded-full hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 font-bold tracking-widest uppercase text-xs sm:text-sm">
-            {PERSONAL_INFO.contact.email}
+        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <a
+            href={`mailto:${PERSONAL_INFO.contact.email}`}
+            className="px-6 sm:px-8 py-3 sm:py-4 border border-white/20 rounded-full hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 font-bold tracking-widest uppercase text-xs sm:text-sm flex items-center gap-2"
+          >
+            <Mail size={16} />
+            <span>{PERSONAL_INFO.contact.email}</span>
+          </a>
+          <a
+            href={`tel:${PERSONAL_INFO.contact.phone.replace(/\s+/g, '')}`}
+            className="px-6 sm:px-8 py-3 sm:py-4 border border-white/20 rounded-full hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 font-bold tracking-widest uppercase text-xs sm:text-sm flex items-center gap-2"
+          >
+            <Phone size={16} />
+            <span>{PERSONAL_INFO.contact.phone}</span>
           </a>
         </div>
 
-        <div className="flex justify-center gap-8 sm:gap-12 text-white/40">
+        <div className="flex justify-center gap-8 sm:gap-12 text-white/40 mb-12">
           {PERSONAL_INFO.socials.map((social) => (
-            <a key={social.name} href={social.url} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors">
-              <social.icon size={20} className="sm:w-6 sm:h-6" />
+            <a key={social.name} href={social.url} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors" title={social.name}>
+              <social.icon size={22} />
             </a>
           ))}
         </div>
 
-        <div className="mt-16 sm:mt-24 md:mt-32 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 text-[10px] sm:text-xs font-mono text-white/20 uppercase">
-          <span>{new Date().getFullYear()} © Mudipa Kishan</span>
-          <span>Designed & Engineered</span>
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] sm:text-xs font-mono text-white/30 uppercase">
+          <span>{new Date().getFullYear()} © Mudipa Kishan · Fullstack Software Engineer</span>
+          <span>Tangalle, Sri Lanka</span>
         </div>
       </div>
 
@@ -497,9 +692,9 @@ const Home = () => (
     <div className="bg-background/80 backdrop-blur-sm">
       <About />
       <ExperienceSection />
-      <Projects />
+      <ProjectsSection />
+      <OpenSourceSection />
       <EducationSection />
-      <Certificates />
       <Footer />
     </div>
   </>
